@@ -5,6 +5,7 @@ Mapper-based extension to the Lift OAuth module.
 
 
 
+**Note:** The module package changed from `net.liftweb.oauth.mapper` to `net.liftmodules.oauth.mapper` in May 2012.  Please consider this when referencing documentation written before that date.
 
 ---
 
