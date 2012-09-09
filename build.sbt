@@ -18,9 +18,9 @@ resolvers += "Java.net Maven2 Repository" at "http://download.java.net/maven/2/"
 
 libraryDependencies <++= liftVersion { v =>
   "net.liftweb" %% "lift-webkit" % v % "compile->default" ::
-  "net.liftweb" %% "lift-mapper" % v % "compile->default"
+  "net.liftweb" %% "lift-mapper" % v % "compile->default" ::
   Nil
-}    
+} 
 
 libraryDependencies <++= version { v =>
   "net.liftmodules" %% "oauth" % v % "compile->default" ::
