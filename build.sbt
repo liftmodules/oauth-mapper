@@ -12,6 +12,8 @@ scalacOptions ++= Seq("-unchecked", "-deprecation")
  
 crossScalaVersions := Seq("2.9.2", "2.9.1-1", "2.9.1", "2.9.0-1", "2.9.0")
 
+resolvers += "Sonatype OSS Release" at "http://oss.sonatype.org/content/repositories/releases"
+
 resolvers += "CB Central Mirror" at "http://repo.cloudbees.com/content/groups/public"
 
 resolvers += "Java.net Maven2 Repository" at "http://download.java.net/maven/2/"
