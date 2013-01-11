@@ -1,5 +1,5 @@
 /*
- * Copyright 2010 WorldWide Conferencing, LLC
+ * Copyright 2010-2013 WorldWide Conferencing, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -64,7 +64,7 @@ trait MOAuthConsumer[ModelType <: MOAuthConsumer[ModelType]] extends LongKeyedMa
     override def dbColumnName = "osr_usa_id_ref"
   }
 
-  def user: UserType = userid.obj.open_!
+  def user: UserType = userid.obj.openOr(sys.error("No user"))
 
   object consumer_key extends MappedUniqueId(this, 48) {
     override def dbColumnName = "osr_consumer_key"

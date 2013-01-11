@@ -1,5 +1,5 @@
 /*
- * Copyright 2010 WorldWide Conferencing, LLC
+ * Copyright 2010-2013 WorldWide Conferencing, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -43,13 +43,13 @@ package mapper {
       override def dbColumnName = "ost_osr_id_ref"
     }
 
-    def consumer = _consumer.obj.open_!
+    def consumer = _consumer.obj.openOr(sys.error("No consumer"))
 
     object userid extends MappedLongForeignKey(this, getUserMeta) {
       override def dbColumnName = "ost_usa_id_ref"
     }
 
-    def user: UserType = userid.obj.open_!
+    def user: UserType = userid.obj.openOr(sys.error("No user"))
 
     object _token extends MappedUniqueId(this, 48) {
       override def dbColumnName = "ost_token"
