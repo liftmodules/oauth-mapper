@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2013 WorldWide Conferencing, LLC
+ * Copyright 2010-2015 WorldWide Conferencing, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package net.liftmodules {
-package oauth {
-package mapper {
+package net.liftmodules
+package oauth
+package mapper
 
   import java.util.Date
   import net.liftweb.mapper._
@@ -55,47 +55,47 @@ package mapper {
       override def dbColumnName = "ost_token"
     }
 
-    def token = _token.is
+    def token = _token.get
 
     object _secret extends MappedUniqueId(this, 48) {
       override def dbColumnName = "ost_token_secret"
     }
 
-    def secret = _secret.is
+    def secret = _secret.get
 
     object token_type extends MappedString(this, 32) {
       override def dbColumnName = "ost_token_type"
     }
 
-    def tokenType = token_type.is
+    def tokenType = token_type.get
 
     object _authorized extends MappedInt(this) {
       override def dbColumnName = "ost_authorized"
       override def defaultValue = 0
     }
 
-    def authorized = _authorized.is
+    def authorized = _authorized.get
 
     object referrer_host extends MappedString(this, 128) {
       override def dbColumnName = "ost_referrer_host"
       override def defaultValue = ""
     }
 
-    def referrerHost = referrer_host.is
+    def referrerHost = referrer_host.get
 
     object _ttl extends MappedDateTime(this) {
       override def dbColumnName = "ost_token_ttl"
       override def defaultValue = 60.minutes.later
     }
 
-    def ttl = _ttl.is
+    def ttl = _ttl.get
 
     object _xdatetime extends MappedDateTime(this) {
       override def dbColumnName = "ost_timestamp"
       override def defaultValue = new Date
     }
 
-    def xdatetime = _xdatetime.is
+    def xdatetime = _xdatetime.get
   }
 
   trait MOAuthTokenMeta[ModelType <: MOAuthToken[ModelType]] extends MOAuthToken[ModelType] with LongKeyedMetaMapper[ModelType] {
@@ -106,7 +106,3 @@ package mapper {
     this.bulkDelete_!!(Cmp[ModelType, Long](_consumer,
                                             OprEnum.Eql, Full(what), Empty, Empty))
   }
-
-}
-}
-}

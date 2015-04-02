@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2013 WorldWide Conferencing, LLC
+ * Copyright 2010-2015 WorldWide Conferencing, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package net.liftmodules {
-package oauth {
-package mapper {
+package net.liftmodules
+package oauth
+package mapper
 
   import net.liftweb.mapper._
   import net.liftweb.common._
@@ -34,27 +34,27 @@ package mapper {
       override def dbColumnName = "osn_consumer_key"
     }
 
-    def consumerKey = _consumer_key.is
+    def consumerKey = _consumer_key.get
 
     protected object _token extends MappedString(this, 64) {
       override def dbColumnName = "osn_token"
     }
 
-    def token = _token.is
+    def token = _token.get
 
     protected object _timestamp extends MappedLong(this) {
       override def dbColumnName = "osn_timestamp"
       override def dbIndexed_? = true
     }
 
-    def timestamp = _timestamp.is
+    def timestamp = _timestamp.get
 
     protected object _nonce extends MappedString(this, 80) {
       override def dbColumnName = "osn_nonce"
       override def dbIndexed_? = true
     }
 
-    def nonce = _nonce.is
+    def nonce = _nonce.get
   }
 
   object MOAuthNonce extends MOAuthNonce with LongKeyedMetaMapper[MOAuthNonce] with OAuthNonceMeta {
@@ -72,7 +72,3 @@ package mapper {
 
 
   }
-
-}
-}
-}
