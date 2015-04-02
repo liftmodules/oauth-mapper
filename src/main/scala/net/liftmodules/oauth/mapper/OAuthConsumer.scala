@@ -118,39 +118,6 @@ LongKeyedMetaMapper[ModelType] with OAuthConsumerMeta {
   override def dbTableName = "oauth_server_registry"
 }
 
-/*
- Example code
-
- class MyUser extends ProtoUser[MyUser] with OAuthUser {
- def getSingleton = MyUser
- }
- object MyUser extends MyUser with KeyedMetaMapper[Long, MyUser]
-
- class TestMOAuthConsumer extends MOAuthConsumer[TestMOAuthConsumer] {
-
- def getSingleton = TestMOAuthConsumer
- type UserType = MyUser
- def getUserMeta = MyUser
- type MOAuthTokenType = TestMOAuthToken
- def getMOAuthTokenMeta = TestMOAuthToken
-
- }
-
- object TestMOAuthConsumer extends TestMOAuthConsumer with MOAuthConsumerMeta[TestMOAuthConsumer]
-
- class TestMOAuthToken extends MOAuthToken[TestMOAuthToken] {
- def getSingleton = TestMOAuthToken
-
- type UserType = MyUser
-
- def getUserMeta = MyUser
-
- type MOAuthConsumerType = TestMOAuthConsumer
- def getMOAuthConsumerMeta = TestMOAuthConsumer
- }
-
- object TestMOAuthToken extends TestMOAuthToken with MOAuthTokenMeta[TestMOAuthToken]
- */
 
 }
 }

@@ -15,6 +15,38 @@ To include this module in your Lift project, update your `libraryDependencies` i
 
 **Note:** The module package changed from `net.liftweb.oauth.mapper` to `net.liftmodules.oauth.mapper` in May 2012.  Please consider this when referencing documentation written before that date.
 
+Example Code
+============
+
+```scala
+class MyUser extends ProtoUser[MyUser] with OAuthUser {
+  def getSingleton = MyUser
+}
+
+object MyUser extends MyUser with KeyedMetaMapper[Long, MyUser]
+
+class TestMOAuthConsumer extends MOAuthConsumer[TestMOAuthConsumer] {
+  def getSingleton = TestMOAuthConsumer
+  type UserType = MyUser
+  def getUserMeta = MyUser
+  type MOAuthTokenType = TestMOAuthToken
+  def getMOAuthTokenMeta = TestMOAuthToken
+}
+
+object TestMOAuthConsumer extends TestMOAuthConsumer with MOAuthConsumerMeta[TestMOAuthConsumer]
+
+class TestMOAuthToken extends MOAuthToken[TestMOAuthToken] {
+  def getSingleton = TestMOAuthToken
+  type UserType = MyUser
+  def getUserMeta = MyUser
+  type MOAuthConsumerType = TestMOAuthConsumer
+  def getMOAuthConsumerMeta = TestMOAuthConsumer
+}
+
+object TestMOAuthToken extends TestMOAuthToken with MOAuthTokenMeta[TestMOAuthToken]
+```
+
+
 Notes for module developers
 ===========================
 
