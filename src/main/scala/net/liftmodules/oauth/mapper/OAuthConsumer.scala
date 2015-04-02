@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2013 WorldWide Conferencing, LLC
+ * Copyright 2010-2015 WorldWide Conferencing, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package net.liftmodules {
-package oauth {
-package mapper {
+package net.liftmodules
+package oauth
+package mapper
 
 import net.liftweb.common.Full
 import net.liftweb.mapper._
@@ -35,14 +35,14 @@ trait MOAuthConsumer[ModelType <: MOAuthConsumer[ModelType]] extends LongKeyedMa
   def getUserMeta: KeyedMetaMapper[Long, UserType]
 
   override def delete_! = {
-    getMOAuthTokenMeta.bulkDelete_!!(this.id.is)
-    MOAuthNonce.bulkDelete_!!(By(MOAuthNonce._consumer_key, consumer_key.is))
+    getMOAuthTokenMeta.bulkDelete_!!(this.id.get)
+    MOAuthNonce.bulkDelete_!!(By(MOAuthNonce._consumer_key, consumer_key.get))
     super.delete_!
   }
 
   def reset = {
-    getMOAuthTokenMeta.bulkDelete_!!(this.id.is)
-    MOAuthNonce.bulkDelete_!!(By(MOAuthNonce._consumer_key, consumer_key.is))
+    getMOAuthTokenMeta.bulkDelete_!!(this.id.get)
+    MOAuthNonce.bulkDelete_!!(By(MOAuthNonce._consumer_key, consumer_key.get))
     consumer_key.reset
     consumer_secret.reset
     save
@@ -58,7 +58,7 @@ trait MOAuthConsumer[ModelType <: MOAuthConsumer[ModelType]] extends LongKeyedMa
     override def defaultValue = 1
   }
 
-  def enabled = _enabled.is
+  def enabled = _enabled.get
 
   object userid extends MappedLongForeignKey(this, getUserMeta) {
     override def dbColumnName = "osr_usa_id_ref"
@@ -71,14 +71,14 @@ trait MOAuthConsumer[ModelType <: MOAuthConsumer[ModelType]] extends LongKeyedMa
     override def writePermission_?  = true
   }
 
-  def consumerKey = consumer_key.is
+  def consumerKey = consumer_key.get
 
   object consumer_secret extends MappedUniqueId(this, 48) {
     override def dbColumnName = "osr_consumer_secret"
     override def writePermission_?  = true
   }
 
-  def consumerSecret = consumer_secret.is
+  def consumerSecret = consumer_secret.get
 
   object _title extends MappedString(this, 80) {
     override def dbColumnName = "osr_application_title"
@@ -86,7 +86,7 @@ trait MOAuthConsumer[ModelType <: MOAuthConsumer[ModelType]] extends LongKeyedMa
     override def validations =  valMinLen(1, "Application name is required") _ :: super.validations
   }
 
-  def title = _title.is
+  def title = _title.get
 
   object application_uri extends MappedString(this, 255) {
     override def dbColumnName = "osr_application_uri"
@@ -94,7 +94,7 @@ trait MOAuthConsumer[ModelType <: MOAuthConsumer[ModelType]] extends LongKeyedMa
     override def validations =  valMinLen(1, "Application web site is required") _ :: super.validations
   }
 
-  def applicationUri = application_uri.is
+  def applicationUri = application_uri.get
 
   object callback_uri extends MappedString(this, 255) {
     override def dbColumnName = "osr_callback_uri"
@@ -102,23 +102,18 @@ trait MOAuthConsumer[ModelType <: MOAuthConsumer[ModelType]] extends LongKeyedMa
     override def validations =  valMinLen(1, "Callback URL is required") _ :: super.validations
   }
 
-  def callbackUri = callback_uri.is
+  def callbackUri = callback_uri.get
 
   object _xdatetime extends MappedDateTime(this) {
     override def dbColumnName = "osr_issue_date"
     override def defaultValue = new java.util.Date
   }
 
-  def xdatetime = _xdatetime.is
+  def xdatetime = _xdatetime.get
 }
 
 trait MOAuthConsumerMeta[ModelType <: MOAuthConsumer[ModelType]] extends MOAuthConsumer[ModelType] with
 LongKeyedMetaMapper[ModelType] with OAuthConsumerMeta {
   self: ModelType =>
   override def dbTableName = "oauth_server_registry"
-}
-
-
-}
-}
 }
